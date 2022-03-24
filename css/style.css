@@ -1,3 +1,9 @@
+body{
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKgAAAErCAMAAAB9xjhEAAAAhFBMVEUAAAD///8EBASpqamTk5Pi4uKXl5dkZGStra3Pz8/l5eX19fWenp6YmJhCQkKioqJfX1+CgoLV1dXFxcX5+fnu7u4uLi6JiYm1tbXc3NwmJiZiYmJGRkZra2tzc3NUVFQ5OTkQEBAiIiJNTU0aGhpERETAwMB+fn4WFhY0NDQrKytycnLMy/mcAAAEoUlEQVR4nO3ba3OiPBgG4ICoBFCQM20VrYq1/v//t3kC1gNVdj+85pl572tnIKTtzj0BknASAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADABNu+XvUqLvVM2b2CafOkbTV3SVtB5cmVri/0tkiMBevxHFpOLbU4pvJUF5mkCjfQP7XMBbv3aa2F2FhbVUwPukY2ajGa6DKjoGLlC1GF6mB0y64mValHM13kFFQ0pTOmdfrWVUxKnkFFZm3UcpeeT/HtmOWut0Wh9/k6O9esPZYteg56CbWSXYvarIKKc9D40G3LRRvU5tWiP0Fr60uvqRsQp4qK08pYqN90QUWQ1mrpWHPayFSPv7Zqg7H6zkHFwU8zq8oF7fVN5WfWis9YT766DlSFmtdvPxOR9dZcJAAA+L+LutVisTjQ1GTjOKq4eDca6hfv3XRuHEsZW1M1lFqJVAKzse7ZIkkXujReq8XessV8bDTRQ2nUBht/0DKeirlnNM8jRSLSIxXaoFXNNagXidGICnrXF+oqr9v1rGajauKZCpGnVKp830+9N5rbU2lqOtkNW7ihWlXUFY2jPKIrJrXrP4/H9cZssh7/fbv9COjG3XivEtN9PJbHaGT5aZr61JXSybSkw5Nl0KS9nk+K7qzPPgTPftRqz+531YgeBS2kCuof1AhasDqb8llXcFVGfT2qeqrPhPAbQtsF+ycLmv2zAAAw7+pZrf5HNVddlC2Y9FiXIPfdPYt4V2p5LoVqSrJQI2btXbYdS0mtw6O/fqHofJN+Z6lgE5dqAt2c9JwpDHff39+50YSdKO2mc6XlqBakoJWv74jT45uQz5xkmlQHasC9H56DSroWsdsWbYNyOF6ncq4vkeJFOOmCxqJpKCizFpUiVk1Z+zpYF1T4y/YYDWQQMgmrguZqgu8tb4J+WF96O4jdsnRNZ9RUUFGOlt1j7y6oLcK4PUZnw//Di1BQkdJ5ft2iqon1MctktxMdNKDFbdDvtHH4BdXcm6DiQAMAo10fXYZQ5yaokGp7YmkLU+n+3sbeKKZTAAAAAAAAAMAzb3V9vK/73PeqTLJVyjKLkyTOmu2lrm6yWEpv7BgNd2uUtd+uiaiS3U2RvJLtM4hdmC0NxeqRo0v55K/padMyu3zP8FU5HO7h28IdXW8f01yonJfnC2pdsXivZH3z1pAt5pnIfXHzteUm6/2VAeXprmIWxPcfXpSrV6V5ourdU/Sb+5qoYXCU9t8XO63va/L4FUkG/PZi233zfXMI2v8ArL+X5xw+C5Z/8cmSM/nvcwwqwuETJd4zOJns4U4y5/GCplsM/UbCYmRS/ebAu4M1lw8uV/L5z7OcwRGqNbNnSWTB52VN78mUc1Q+/tmLqebyH35OO+EwKF3ssulv+9cWMy4nUoumnL/O5MqB8+zlVGOOw/4oL/kcn1eo9W6S5t7gUPB6lPCQXV0tt5tcuqU7uRd2JRUw4XZ4/tDvDbafXanRKlvweNHtkQ+P3sbaSfllOskgxz8FGZPp0nO7Jhz+JfgXbOZKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMP+ANl+MT9HFdiDAAAAAElFTkSuQmCC");
+    height: 100%;
+}
+
+
 .board {
     border: 4px, solid, black;
 }
@@ -5,24 +11,109 @@ h1{
     font-size: xx-large;
     font-family: 'Merienda';
     color: green;
+    text-align: center;
 }
-td{
-    width: 30px;
-    height: 30px;
+td {
+    width: 50px;
+    height: 50px;
     background-color: rgb(153, 153, 153);
     border: 1px solid black;
 }
 
 .mine{
-    width: 30px;
-    height: 30px;
-    object-fit: cover;
+    width: 100px;
+    height: 100px;
+    /* object-fit: contain; */
+    /* object-fit: cover; */
 }
 
+
 .face{
-    background-color: black;
+    background-color: grey;
     width: 50px;
     height: 50px;
-    font-size: xx-large;
-    
+    font-size: xx-large;  
+} 
+.face button{
+    box-shadow:inset 0px 0px 14px -3px #76990d;
+    background:linear-gradient(to bottom, #82be09 5%, #366938 100%);
+    background-color:#537a03;
+    border-radius:6px;
+    border:1px solid #254d00;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:0px 1px 8px #000000;
 }
+.face button:hover {
+    background:linear-gradient(to bottom, #2e5530 5%, #556632 100%);
+    background-color:#2e572f;
+}
+.face button:active {
+    position:relative;
+    top:1px;
+}
+
+
+
+footer{
+    font-size: medium;
+    font-weight: bolder;
+    margin-top: 300px;
+    text-align: center;
+    color: green;
+    background-color: grey;
+    height: 60px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+.timer, .lives{
+    color: rgb(17, 134, 13);
+    text-align: center;
+    font-family: 'Merienda';
+    padding: 3px;
+    font-weight: bolders;
+}
+
+/* button{
+    background-color: grey;
+    cursor: pointer;
+    font-size: medium;
+    font-family: 'Merienda';
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: rgb(102, 98, 98);
+
+} */
+button {
+    box-shadow:inset 0px 0px 14px -3px #a7db0d;
+    background:linear-gradient(to bottom, #93d60d 5%, #3f7541 100%);
+    background-color:#93d60d;
+    border-radius:6px;
+    border:1px solid #254d00;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:0px 1px 8px #000000;
+}
+button:hover {
+    background:linear-gradient(to bottom, #3f7541 5%, #93d60d 100%);
+    background-color:#3f7541;
+}
+button:active {
+    position:relative;
+    top:1px;
+}
+    

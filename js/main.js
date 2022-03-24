@@ -67,7 +67,6 @@ function cellClicked(elCell){
     var elFace = document.querySelector('.face')
     var elLIves = document.querySelector('.lives span')
     if(!gGame.isOn)return
-    // if(elFace) init()//doesnt work
     var cellClass = elCell.className.split('-')
     var i = cellClass[1]
     var j = cellClass[2]
@@ -78,6 +77,7 @@ function cellClicked(elCell){
     }
     if(gBoard[i][j].isMine){
         renderCell(location, MINE)
+        audioBomb.play();
         gLives--
         console.log(gLives)
         elLIves.innerHTML = gLives

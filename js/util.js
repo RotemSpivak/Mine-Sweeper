@@ -3,7 +3,6 @@
 var gStartTimer = document.querySelector('.timer')
 var elCell
 
-
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
@@ -24,6 +23,11 @@ function getRandomIntInclusive(min, max) {
     max = Math.floor(max)
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
+
+
+
+var audioBomb = new Audio('explosion.mp3');
+var audioSwoosh = new Audio('swoosh.mp3');
 
 
 function createMat(ROWS, COLS) {
@@ -112,6 +116,7 @@ function cellRightClick(event, elCell, i, j){
     }
     if(cell.isShow) return
     cell.isMarked = true
+    audioSwoosh.play()
     renderCell(idx, FLAG)
     if(cell.isMine) gGame.minesFlagged++
     checkVictory()
