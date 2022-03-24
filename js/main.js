@@ -124,15 +124,3 @@ function cellClicked(elCell){
 }
 
 
-// function sevenBoom(){//doesnt work
-//     gGame.isSevenBoom = true
-//     var count = 0
-//     for(var i = 0; i < gBoard.length; i++){
-//         for(var j = 0; j < gBoard.length; j++){
-//             var currCell = gBoard[i][j]
-//             count++
-//             if(count % 7 === 0) currCell.isMine = true
-//         }
-//     }
-//     setMinesNegsCount(gBoard)
-// }
