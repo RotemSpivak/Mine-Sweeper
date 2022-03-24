@@ -176,6 +176,7 @@ function victory(){
 
 function gameOver(){
     clearInterval(gStopTimer)
+    showMines()
     gGame.isOn = false
     return
 }
@@ -209,4 +210,14 @@ function setMines(idxI,idxJ){
 
 function getLevel(){
     return size === 4 ? 'easy': size === 8 ? 'medium': 'hard'
+}
+
+function showMines(){
+    for(var i = 0; i < gBoard.length;i++){
+        for(var j = 0; j < gBoard[0].length;j++){
+            if(gBoard[i][j].isMine) {
+                renderCell({i:i, j:j}, MINE)
+            }
+        }
+    }
 }
