@@ -1,0 +1,28 @@
+.board {
+    border: 4px, solid, black;
+}
+h1{
+    font-size: xx-large;
+    font-family: 'Merienda';
+    color: green;
+}
+td{
+    width: 30px;
+    height: 30px;
+    background-color: rgb(153, 153, 153);
+    border: 1px solid black;
+}
+
+.mine{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+.face{
+    background-color: black;
+    width: 50px;
+    height: 50px;
+    font-size: xx-large;
+    
+}
