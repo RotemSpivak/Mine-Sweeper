@@ -10,25 +10,32 @@
 </head>
 <body onload="init()">
     <h1>Minesweeper</h1>
-    <div class="header">
-        <button class="face" onclick="init()">😏</button>
-        <h2 class="lives">Lives left: <span>3</span></h2>
-        <h2 class="timer">Timer</h2>
 
-
+    <div class="container">
+        <div class="header">
+            <div class="header-container">
+                <h2 class="lives">Lives left: <span>1</span></h2>
+                <h2 class="timer">Timer</h2>
+                <h2 class="score">High Score: <span>0</span> </h2>
+            </div>
+            <button class="face" onclick="init()">
+                <span>😏</span> 
+            </button>
+        </div>
+        <div class="board"></div>
+        <div class="buttons">
+            <button onclick="easy()">beginner</button>
+            <button onclick="medium()">amateur</button>
+            <button onclick="hard()">expert</button>
+            <!-- <button onclick="sevenBoom()">7 BOOM!</button> -->
+        </div>
     </div>
-    <div class="board">
 
-    </div>
-    <button onclick="easy()">beginner</button>
-    <button onclick="medium()">amateur</button>
-    <button onclick="hard()">expert</button>
-    
-    
     <footer>
         <p>Rotem Spivak</p>
         <p><a href="rotemspivak@gmail.com">rotemspivak@gmail.com</a></p>
-      </footer>
+    </footer>
+
     <script src="js/main.js"></script>
     <script src="js/util.js"></script>
 </body>

@@ -4,12 +4,12 @@ var gGame = {
     isOn: true,
     showCount: 0,
     minesFlagged: 0,
-    secsPassed: 0,
+    isSevenBoom: false,
 }
-var face = '😏'
-var lifeLostFace = '😰'
-var gameOverFace = '😭'
-var victoryFace = '🤩'
+var face = '<span>😏</span>'
+var lifeLostFace = '<span>😰</span>'
+var gameOverFace = '<span>😭</span>'
+var victoryFace = '<span>🤩</span>'
 var gStartTimer
 var gStopTimer
 var MINE = '💣'
@@ -18,69 +18,83 @@ var gLevel = {
     size: 4,
     mines: 2,
 }
-var gLives = 3
+var gScoresKey = 'scores'
+var gScores
+var gLives = 1
 var size = gLevel.size
 var mines = gLevel.mines
 
 function init(){
+    var elFace = document.querySelector('.face')
+    elFace.innerHTML = face
+    gGame.isOn = true
+    var elLives = document.querySelector('.lives span')
+    var lives = size === 4 ? 1 : 3
+    gLives = lives
+    elLives.innerText = lives
     clearInterval(gStopTimer)
+    gStopTimer = ''
     gStartTimer.innerText = 'Timer'
-    gBoard = createBoard(size,mines)
-    createMat(size,size)
-    setMinesNegsCount(gBoard)
+    gBoard = createMat(size,size)
     renderBoard(gBoard)
+    gScores = JSON.parse(localStorage.getItem(gScoresKey)) || { 
+        easy:0,
+        medium:0,
+        hard:0,
+    }
+    var level = getLevel()
+    var elScore = document.querySelector('.score span')
+    elScore.innerText = gScores[level]
 }
 function easy(){
-    gLevel.size = 4
-    gLevel.mines = 2
+    size = 4
+    mines = 2
     init()
 }
 function medium(){
+    var elLives = document.querySelector('.lives span')
+    gLives = 3
+    elLives.innerText = gLives
     size = 8
     mines = 12
     init()
 }
 function hard(){
+    var elLives = document.querySelector('.lives span')
+    gLives = 3
+    elLives.innerText = gLives
     size = 12
     mines = 30
     init()
 }
 
-function createBoard(size,mines){
-    gBoard = createMat(size,size)
-    var minesLocation = []
-    for(var i = 0; i < mines; i++){
-        var randomI = getRandomIntInclusive(0,gBoard.length - 1)
-        var randomJ = getRandomIntInclusive(0,gBoard.length - 1)
-        while(minesLocation.includes(`${randomI},${randomJ}`)) {
-            randomI = getRandomIntInclusive(0,gBoard.length - 1)
-            randomJ = getRandomIntInclusive(0,gBoard.length - 1)
-        }
-        gBoard[randomI][randomJ].isMine = true
-        minesLocation.push(`${randomI},${randomJ}`)
-    }
-    return gBoard
-}
-
 
 function cellClicked(elCell){
     var elFace = document.querySelector('.face')
-    var elLIves = document.querySelector('.lives span')
-    if(!gGame.isOn)return
+    var elLives = document.querySelector('.lives span')
     var cellClass = elCell.className.split('-')
     var i = cellClass[1]
     var j = cellClass[2]
+    if(checkFirstClick(gBoard)){
+        setMines(i,j)
+        setMinesNegsCount(gBoard)
+    }
+    if (!gStopTimer) {
+        var start = Date.now()
+        gStopTimer = setInterval(() => startTimer(start), 1);
+    }
+    if(!gGame.isOn)return
     if(gBoard[i][j].isMarked || gBoard[i][j].isShow ) return
     var location = {
         i:i,
         j:j
     }
-    if(gBoard[i][j].isMine){
-        renderCell(location, MINE)
+    if(gBoard[i][j].isMine && !gBoard[i][j].isShow){
         audioBomb.play();
+        renderCell(location, MINE)
         gLives--
-        console.log(gLives)
-        elLIves.innerHTML = gLives
+        gBoard[i][j].isShow= true
+        elLives.innerHTML = gLives
         elFace.innerHTML = lifeLostFace
         var timeout = setTimeout(() => {elFace.innerHTML = face}, 1000)
         if(gLives === 0){
@@ -88,35 +102,37 @@ function cellClicked(elCell){
             elFace.innerHTML = gameOverFace
             gameOver()
             return
-        }
+        }return
+    }
+    if(!gBoard[i][j].isMine){
+        var level = getLevel()
+        gScores[level]++
+        var elScore = document.querySelector('.score span')
+        elScore.innerText = gScores[level]
+        localStorage.setItem(gScoresKey, JSON.stringify(gScores))
     }
     if(!gBoard[i][j].isMine && !gBoard[i][j].minesAroundCount){
-        var neighbors = showNeighbors(gBoard,i,j)
+        showNeighbors(gBoard,i,j)
     }
-    // gGame.showCount++
-    renderCell(location, gBoard[i][j].minesAroundCount)
-    console.log('mines flagged',gGame.minesFlagged)
+    if(!gBoard[i][j].isShow) {
+        gBoard[i][j].isShow = true
+        gGame.showCount++
+    }
+    var content = gBoard[i][j].minesAroundCount ? gBoard[i][j].minesAroundCount : ''
+    renderCell(location, content)
     checkVictory()
-    if (!gStopTimer) {
-        var start = Date.now()
-        gStopTimer = setInterval(() => startTimer(start), 1);
-    }
 }
 
-function checkVictory(){
-    if(gGame.minesFlagged === mines && gGame.showCount === (size**2 - mines)) victory()
-}
 
-function victory(){
-    clearInterval(gStopTimer)
-    gGame.isOn = false
-    console.log('victory')
-}
-
-function gameOver(){
-    clearInterval(gStopTimer)
-    console.log('gameOver')
-    gGame.isOn = false
-    return
-}
-
+// function sevenBoom(){//doesnt work
+//     gGame.isSevenBoom = true
+//     var count = 0
+//     for(var i = 0; i < gBoard.length; i++){
+//         for(var j = 0; j < gBoard.length; j++){
+//             var currCell = gBoard[i][j]
+//             count++
+//             if(count % 7 === 0) currCell.isMine = true
+//         }
+//     }
+//     setMinesNegsCount(gBoard)
+// }
