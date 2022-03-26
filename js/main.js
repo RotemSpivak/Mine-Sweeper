@@ -6,11 +6,11 @@ var gGame = {
     minesFlagged: 0,
     isSevenBoom: false,
 }
-var face = '<span>😏</span>'
+var face = '😏'
 var noLivesFace = '💀'
-var lifeLostFace = '<span>😰</span>'
-var gameOverFace = '<span>😭</span>'
-var victoryFace = '<span>🤩</span>'
+var lifeLostFace = '😰'
+var gameOverFace = '😭'
+var victoryFace = '🤩'
 var gStartTimer
 var gStopTimer
 var MINE = '💣'
@@ -26,7 +26,9 @@ var size = gLevel.size
 var mines = gLevel.mines
 
 function init(){
-    var elFace = document.querySelector('.face')
+    gGame.showCount = 0
+    gGame.minesFlagged = 0
+    var elFace = document.querySelector('.face span')
     elFace.innerHTML = face
     gGame.isOn = true
     var elLives = document.querySelector('.lives span')
@@ -71,7 +73,7 @@ function hard(){
 
 
 function cellClicked(elCell){
-    var elFace = document.querySelector('.face')
+    var elFace = document.querySelector('.face span')
     var elLives = document.querySelector('.lives span')
     var cellClass = elCell.className.split('-')
     var i = cellClass[1]
@@ -126,15 +128,3 @@ function cellClicked(elCell){
 }
 
 
-// function sevenBoom(){//doesnt work
-//     gGame.isSevenBoom = true
-//     var count = 0
-//     for(var i = 0; i < gBoard.length; i++){
-//         for(var j = 0; j < gBoard.length; j++){
-//             var currCell = gBoard[i][j]
-//             count++
-//             if(count % 7 === 0) currCell.isMine = true
-//         }
-//     }
-//     setMinesNegsCount(gBoard)
-// }

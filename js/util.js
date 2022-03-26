@@ -159,16 +159,21 @@ function countNeighbors(cellI, cellJ, mat) {
 function victory(){
     clearInterval(gStopTimer)
     gGame.isOn = false
+    var elFace = document.querySelector('.face span')
+    elFace.innerText = victoryFace
 }
 
 function gameOver(){
     clearInterval(gStopTimer)
     gGame.isOn = false
+    showMines(gBoard)
     return
 }
 
 function checkVictory(){
-    if(gGame.minesFlagged === mines && gGame.showCount === size**2) victory()
+    if(gGame.minesFlagged === mines && gGame.showCount === size**2 - gGame.minesFlagged) victory()
+    console.log('mines flagged', gGame.minesFlagged)
+    console.log('showCount', gGame.showCount)
 }
 
 function checkFirstClick(mat){
@@ -191,6 +196,17 @@ function setMines(idxI,idxJ){
         }
         gBoard[randomI][randomJ].isMine = true
         minesLocation.push(`${randomI},${randomJ}`)
+    }
+}
+
+function showMines(gBoard){
+    for(var i = 0; i < size; i++){
+        for(var j = 0; j < size; j++){
+            if(gBoard[i][j].isMine){
+                gBoard[i][j].isShow
+                renderCell({i:i,j:j}, MINE)
+            }
+        }
     }
 }
 

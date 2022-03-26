@@ -193,4 +193,5 @@ footer{
     height: 35px;
     font-size: larger;
     font-weight: bolder;
+    cursor: pointer;
 }
