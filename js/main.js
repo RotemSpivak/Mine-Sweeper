@@ -7,6 +7,7 @@ var gGame = {
     isSevenBoom: false,
 }
 var face = '<span>😏</span>'
+var noLivesFace = '💀'
 var lifeLostFace = '<span>😰</span>'
 var gameOverFace = '<span>😭</span>'
 var victoryFace = '<span>🤩</span>'
@@ -31,7 +32,7 @@ function init(){
     var elLives = document.querySelector('.lives span')
     var lives = size === 4 ? 1 : 3
     gLives = lives
-    elLives.innerText = lives
+    elLives.innerText = getHearts(gLives)
     clearInterval(gStopTimer)
     gStopTimer = ''
     gStartTimer.innerText = 'Timer'
@@ -93,13 +94,14 @@ function cellClicked(elCell){
         audioBomb.play();
         renderCell(location, MINE)
         gLives--
+        elLives.innerText = getHearts()
         gBoard[i][j].isShow= true
-        elLives.innerHTML = gLives
         elFace.innerHTML = lifeLostFace
         var timeout = setTimeout(() => {elFace.innerHTML = face}, 1000)
         if(gLives === 0){
             clearTimeout(timeout)
             elFace.innerHTML = gameOverFace
+            elLives.innerText = noLivesFace
             gameOver()
             return
         }return
@@ -124,3 +126,15 @@ function cellClicked(elCell){
 }
 
 
+// function sevenBoom(){//doesnt work
+//     gGame.isSevenBoom = true
+//     var count = 0
+//     for(var i = 0; i < gBoard.length; i++){
+//         for(var j = 0; j < gBoard.length; j++){
+//             var currCell = gBoard[i][j]
+//             count++
+//             if(count % 7 === 0) currCell.isMine = true
+//         }
+//     }
+//     setMinesNegsCount(gBoard)
+// }

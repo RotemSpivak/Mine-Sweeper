@@ -14,13 +14,29 @@
     <div class="container">
         <div class="header">
             <div class="header-container">
-                <h2 class="lives">Lives left: <span>1</span></h2>
+                <h2 class="lives">Lives left: <span>💚</span></h2>
                 <h2 class="timer">Timer</h2>
                 <h2 class="score">High Score: <span>0</span> </h2>
             </div>
             <button class="face" onclick="init()">
                 <span>😏</span> 
             </button>
+        </div>
+        <button class="instructions" onclick="openModal()">Instructions</button>
+        <div class="modal">
+            <button onclick="closeModal()">x</button>
+            <h2>Instructions:</h2>
+            <ol>
+                <li>Click any square on the grid. Don't worry! It wont be a mine.</li>
+                <br>
+                <li>Review the numbers. Any number on the board refers to the number of mines currently touching that number's square.</li>
+                <br>
+                <li>Right-click any squares that you think contain mines. This will put a flag on the square. It's best to start with squares that absolutely have to contain mines (e.g., a solitary square next to a "1" on the board) to help with the process of elimination later.</li>
+                <br>
+                <li>Click any squares that don't contain mines. This will clear the squares in question.</li>
+                <br>
+                <li>In order to win you have to clear the board. You must click on every square that doesn't have a mine beneath it. Make sure to look at the top right corner of the screen to see how many lives you have left!</li>
+            </ol>
         </div>
         <div class="board"></div>
         <div class="buttons">

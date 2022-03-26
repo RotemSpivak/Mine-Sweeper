@@ -1,5 +1,6 @@
 "use strict";
 
+var gModal = document.querySelector('.modal')
 var gStartTimer = document.querySelector('.timer')
 var elCell
 
@@ -64,9 +65,7 @@ function showNeighbors(mat, idxI, idxJ) {
     idxI = parseInt(idxI)
     idxJ = parseInt(idxJ)
     for (var i = idxI - 1; i <= idxI + 1; i++) {
-        if (i < 0 || i > mat.length - 1) {
-            continue
-        }
+        if (i < 0 || i > mat.length - 1) continue
         for (var j = idxJ - 1; j <= idxJ + 1; j++) {
             if (i === idxI && j === idxJ)continue
             if(mat[idxI][idxJ].isMine)continue
@@ -75,6 +74,7 @@ function showNeighbors(mat, idxI, idxJ) {
             if(mat[i][j].isMarked)continue
             mat[i][j].isShow = true;
             gGame.showCount++
+            if(!mat[i][j].minesAroundCount) showNeighbors(mat, i, j)
             var content = mat[i][j].minesAroundCount ? mat[i][j].minesAroundCount : ''
             renderCell({i:i,j:j}, content)
         }
@@ -88,7 +88,7 @@ function renderBoard(mat) {
         strHTML += '<tr>';
         for (var j = 0; j < mat[0].length; j++) {
             var className = 'cell cell-' + i + '-' + j;
-            strHTML += `<td id="id:${i},${j}" class="` + className + `" onclick="cellClicked(this,${i},${j})" oncontextmenu="cellRightClick(event, this,${i},${j})"> `
+            strHTML += `<td width="${Math.floor(384/size)}" height="${Math.floor(384/size)}" id="id:${i},${j}" class="` + className + `" onclick="cellClicked(this,${i},${j})" oncontextmenu="cellRightClick(event, this,${i},${j})"> `
             if(mat[i][j].isMine){
                 strHTML += MINE
             } else strHTML+= ''
@@ -137,19 +137,6 @@ function startTimer(start){
     gStartTimer.innerText = fixed
 }
 
-function sumArea(matrix, rowIdxStart, rowIdxEnd, colIdxStart, colIdxEnd) {
-    var sum = 0;
-    for (var i = rowIdxStart; i <= rowIdxEnd; i++) {
-        var currRow = matrix[i];
-        for (var j = colIdxStart; j <= colIdxEnd; j++) {
-            var currNum = currRow[j];
-            sum += currNum;
-        }
-    }
-    return sum;
-}
-
-
 function setMinesNegsCount(board){
     for(var i = 0; i < board.length; i++){
         for(var j = 0; j < board.length; j++)
@@ -176,7 +163,6 @@ function victory(){
 
 function gameOver(){
     clearInterval(gStopTimer)
-    showMines()
     gGame.isOn = false
     return
 }
@@ -212,12 +198,24 @@ function getLevel(){
     return size === 4 ? 'easy': size === 8 ? 'medium': 'hard'
 }
 
-function showMines(){
-    for(var i = 0; i < gBoard.length;i++){
-        for(var j = 0; j < gBoard[0].length;j++){
-            if(gBoard[i][j].isMine) {
-                renderCell({i:i, j:j}, MINE)
-            }
-        }
+function getHearts(){
+    var heartStr = ''
+    for(var i = 0; i < gLives; i++){
+        heartStr += '💚'
     }
+    return heartStr
+}
+
+function openModal() {
+    gModal.classList.add('open')
+    gModal.classList.remove('close')
+  }
+  
+function closeModal() {
+    gModal.classList.remove('open')
+    gModal.classList.add('close')
+}
+
+function showInstructions(){
+    openModal()
 }
